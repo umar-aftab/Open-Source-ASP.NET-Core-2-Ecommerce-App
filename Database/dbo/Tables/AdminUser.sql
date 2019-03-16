@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[AdminUser]
+(
+	[AdminUserId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(100) NOT NULL,
+	[Password] VARBINARY(1026) NULL, 
+	[AccessLevelID] UNIQUEIDENTIFIER NOT NULL,
+	CONSTRAINT [FK_AdminUser_to_AdminAccessLevel] FOREIGN KEY ([AccessLevelID]) REFERENCES [AdminAccesLevel]([AdminAccesLevelId]) ON DELETE NO ACTION ON UPDATE CASCADE 
+)

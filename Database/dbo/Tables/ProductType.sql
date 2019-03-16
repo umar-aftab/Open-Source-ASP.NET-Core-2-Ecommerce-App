@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[ProductType]
+(
+	[ProductTypeId]  UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[Description] NVARCHAR(100) NOT NULL
+)

@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[AdminAccesLevel]
+(
+	[AdminAccesLevelId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[AccessLevel] NVARCHAR(100) NOT NULL
+)

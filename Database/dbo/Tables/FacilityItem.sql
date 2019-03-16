@@ -1,0 +1,14 @@
+﻿CREATE TABLE [dbo].[FacilityItem]
+(
+	[ItemId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[FacilityId] UNIQUEIDENTIFIER NOT NULL,
+	[OrderId] UNIQUEIDENTIFIER NOT NULL,
+	[SellerId] UNIQUEIDENTIFIER NOT NULL,
+	[BuyerId] UNIQUEIDENTIFIER NOT NULL,
+	[DroppedOf] BIT NOT NULL,
+	[PickedUp] BIT NOT NULL,
+	CONSTRAINT [FK_FacilityItem_to_Facility] FOREIGN KEY ([FacilityId]) REFERENCES [DropOffFacility]([FacilityId]) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT [FK_FacilityItem_to_Seller] FOREIGN KEY ([SellerId]) REFERENCES [WebsiteUser]([WebsiteUserId]), 
+	CONSTRAINT [FK_FacilityItem_to_Buyer] FOREIGN KEY ([BuyerId]) REFERENCES [WebsiteUser]([WebsiteUserId]),
+	CONSTRAINT [FK_FacilityItem_to_Order] FOREIGN KEY ([OrderId]) REFERENCES [Order]([OrderId]) ON DELETE CASCADE ON UPDATE CASCADE
+)

@@ -1,0 +1,1071 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UElectricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminAccesLevel">
+          <Key>
+            <PropertyRef Name="AdminAccesLevelId" />
+          </Key>
+          <Property Name="AdminAccesLevelId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccessLevel" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdminUser">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varbinary" MaxLength="1026" />
+          <Property Name="AccessLevelID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BillingInfo">
+          <Key>
+            <PropertyRef Name="BillingInfoId" />
+          </Key>
+          <Property Name="BillingInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PaymentStatus" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="varbinary" MaxLength="1026" Nullable="false" />
+          <Property Name="PayPalEmail" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DropOffFacility">
+          <Key>
+            <PropertyRef Name="FacilityId" />
+          </Key>
+          <Property Name="FacilityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hours" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FacilityEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FacilityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="FacilityItem">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FacilityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SellerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BuyerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DroppedOf" Type="bit" Nullable="false" />
+          <Property Name="PickedUp" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="10" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="Flagged" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderProduct">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Price" Type="nvarchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="ProductTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Condition" Type="nvarchar" MaxLength="100" />
+          <Property Name="Flagged" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ProductCategoryId" />
+          </Key>
+          <Property Name="ProductCategoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ProductTypeId" />
+          </Key>
+          <Property Name="ProductTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReviewingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReviewedUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Stars" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Flagged" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BillingInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebsiteUser">
+          <Key>
+            <PropertyRef Name="WebsiteUserId" />
+          </Key>
+          <Property Name="WebsiteUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varbinary" MaxLength="1026" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Flagged" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdminUser_to_AdminAccessLevel">
+          <End Role="AdminAccesLevel" Type="Self.AdminAccesLevel" Multiplicity="1" />
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminAccesLevel">
+              <PropertyRef Name="AdminAccesLevelId" />
+            </Principal>
+            <Dependent Role="AdminUser">
+              <PropertyRef Name="AccessLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingInfo_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="BillingInfo" Type="Self.BillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="BillingInfo">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityEmployee_to_Facility">
+          <End Role="DropOffFacility" Type="Self.DropOffFacility" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityEmployee" Type="Self.FacilityEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DropOffFacility">
+              <PropertyRef Name="FacilityId" />
+            </Principal>
+            <Dependent Role="FacilityEmployee">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Buyer">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Facility">
+          <End Role="DropOffFacility" Type="Self.DropOffFacility" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DropOffFacility">
+              <PropertyRef Name="FacilityId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Seller">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_BillingInfo">
+          <End Role="BillingInfo" Type="Self.BillingInfo" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingInfo">
+              <PropertyRef Name="BillingInfoId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="BillingInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProduct_to_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderProduct">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProduct_to_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_to_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="ProductCategoryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_to_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="ProductTypeId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_to_ReviewedUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ReviewedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_to_ReviewingUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ReviewingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UElectricsModelStoreContainer">
+          <EntitySet Name="AdminAccesLevel" EntityType="Self.AdminAccesLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminUser" EntityType="Self.AdminUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillingInfo" EntityType="Self.BillingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DropOffFacility" EntityType="Self.DropOffFacility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacilityEmployee" EntityType="Self.FacilityEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacilityItem" EntityType="Self.FacilityItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionHistory" EntityType="Self.TransactionHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebsiteUser" EntityType="Self.WebsiteUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdminUser_to_AdminAccessLevel" Association="Self.FK_AdminUser_to_AdminAccessLevel">
+            <End Role="AdminAccesLevel" EntitySet="AdminAccesLevel" />
+            <End Role="AdminUser" EntitySet="AdminUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingInfo_to_WebsiteUser" Association="Self.FK_BillingInfo_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="BillingInfo" EntitySet="BillingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityEmployee_to_Facility" Association="Self.FK_FacilityEmployee_to_Facility">
+            <End Role="DropOffFacility" EntitySet="DropOffFacility" />
+            <End Role="FacilityEmployee" EntitySet="FacilityEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Buyer" Association="Self.FK_FacilityItem_to_Buyer">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="FacilityItem" EntitySet="FacilityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Facility" Association="Self.FK_FacilityItem_to_Facility">
+            <End Role="DropOffFacility" EntitySet="DropOffFacility" />
+            <End Role="FacilityItem" EntitySet="FacilityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Order" Association="Self.FK_FacilityItem_to_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="FacilityItem" EntitySet="FacilityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Seller" Association="Self.FK_FacilityItem_to_Seller">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="FacilityItem" EntitySet="FacilityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_BillingInfo" Association="Self.FK_History_to_BillingInfo">
+            <End Role="BillingInfo" EntitySet="BillingInfo" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_Product" Association="Self.FK_History_to_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_WebsiteUser" Association="Self.FK_History_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_to_WebsiteUser" Association="Self.FK_Order_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProduct_to_Order" Association="Self.FK_OrderProduct_to_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderProduct" EntitySet="OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProduct_to_Product" Association="Self.FK_OrderProduct_to_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderProduct" EntitySet="OrderProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_to_ProductCategory" Association="Self.FK_Product_to_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_to_ProductType" Association="Self.FK_Product_to_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_to_ReviewedUser" Association="Self.FK_Review_to_ReviewedUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_to_ReviewingUser" Association="Self.FK_Review_to_ReviewingUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UElectricsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminAccesLevel">
+          <Key>
+            <PropertyRef Name="AdminAccesLevelId" />
+          </Key>
+          <Property Name="AdminAccesLevelId" Type="Guid" Nullable="false" />
+          <Property Name="AccessLevel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AdminUsers" Relationship="Self.FK_AdminUser_to_AdminAccessLevel" FromRole="AdminAccesLevel" ToRole="AdminUser" />
+        </EntityType>
+        <EntityType Name="AdminUser">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="Binary" MaxLength="1026" FixedLength="false" />
+          <Property Name="AccessLevelID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="AdminAccesLevel" Relationship="Self.FK_AdminUser_to_AdminAccessLevel" FromRole="AdminUser" ToRole="AdminAccesLevel" />
+        </EntityType>
+        <EntityType Name="BillingInfo">
+          <Key>
+            <PropertyRef Name="BillingInfoId" />
+          </Key>
+          <Property Name="BillingInfoId" Type="Guid" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="Guid" Nullable="false" />
+          <Property Name="PaymentStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="Binary" MaxLength="1026" FixedLength="false" Nullable="false" />
+          <Property Name="PayPalEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WebsiteUser" Relationship="Self.FK_BillingInfo_to_WebsiteUser" FromRole="BillingInfo" ToRole="WebsiteUser" />
+          <NavigationProperty Name="TransactionHistories" Relationship="Self.FK_History_to_BillingInfo" FromRole="BillingInfo" ToRole="TransactionHistory" />
+        </EntityType>
+        <EntityType Name="DropOffFacility">
+          <Key>
+            <PropertyRef Name="FacilityId" />
+          </Key>
+          <Property Name="FacilityId" Type="Guid" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FacilityEmployees" Relationship="Self.FK_FacilityEmployee_to_Facility" FromRole="DropOffFacility" ToRole="FacilityEmployee" />
+          <NavigationProperty Name="FacilityItems" Relationship="Self.FK_FacilityItem_to_Facility" FromRole="DropOffFacility" ToRole="FacilityItem" />
+        </EntityType>
+        <EntityType Name="FacilityEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Guid" Nullable="false" />
+          <Property Name="FacilityId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DropOffFacility" Relationship="Self.FK_FacilityEmployee_to_Facility" FromRole="FacilityEmployee" ToRole="DropOffFacility" />
+        </EntityType>
+        <EntityType Name="FacilityItem">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Guid" Nullable="false" />
+          <Property Name="FacilityId" Type="Guid" Nullable="false" />
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <Property Name="SellerId" Type="Guid" Nullable="false" />
+          <Property Name="BuyerId" Type="Guid" Nullable="false" />
+          <Property Name="DroppedOf" Type="Boolean" Nullable="false" />
+          <Property Name="PickedUp" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DropOffFacility" Relationship="Self.FK_FacilityItem_to_Facility" FromRole="FacilityItem" ToRole="DropOffFacility" />
+          <NavigationProperty Name="Buyer" Relationship="Self.FK_FacilityItem_to_Buyer" FromRole="FacilityItem" ToRole="WebsiteUser" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_FacilityItem_to_Order" FromRole="FacilityItem" ToRole="Order" />
+          <NavigationProperty Name="Seller" Relationship="Self.FK_FacilityItem_to_Seller" FromRole="FacilityItem" ToRole="WebsiteUser" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Cost" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="Flagged" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FacilityItems" Relationship="Self.FK_FacilityItem_to_Order" FromRole="Order" ToRole="FacilityItem" />
+          <NavigationProperty Name="WebsiteUser" Relationship="Self.FK_Order_to_WebsiteUser" FromRole="Order" ToRole="WebsiteUser" />
+          <NavigationProperty Name="Products" Relationship="Self.OrderProduct" FromRole="Order" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Guid" Nullable="false" />
+          <Property Name="Price" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductTypeId" Type="Guid" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Guid" Nullable="false" />
+          <Property Name="Condition" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Flagged" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TransactionHistories" Relationship="Self.FK_History_to_Product" FromRole="Product" ToRole="TransactionHistory" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_to_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_to_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="Orders" Relationship="Self.OrderProduct" FromRole="Product" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ProductCategoryId" />
+          </Key>
+          <Property Name="ProductCategoryId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_to_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ProductTypeId" />
+          </Key>
+          <Property Name="ProductTypeId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_to_ProductType" FromRole="ProductType" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Guid" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewingUserId" Type="Guid" Nullable="false" />
+          <Property Name="ReviewedUserId" Type="Guid" Nullable="false" />
+          <Property Name="Stars" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Flagged" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ReviewedUser" Relationship="Self.FK_Review_to_ReviewedUser" FromRole="Review" ToRole="WebsiteUser" />
+          <NavigationProperty Name="ReviewingUser" Relationship="Self.FK_Review_to_ReviewingUser" FromRole="Review" ToRole="WebsiteUser" />
+        </EntityType>
+        <EntityType Name="TransactionHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Guid" Nullable="false" />
+          <Property Name="WebsiteUserId" Type="Guid" Nullable="false" />
+          <Property Name="BillingInfoId" Type="Guid" Nullable="false" />
+          <Property Name="ProductId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="BillingInfo" Relationship="Self.FK_History_to_BillingInfo" FromRole="TransactionHistory" ToRole="BillingInfo" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_History_to_Product" FromRole="TransactionHistory" ToRole="Product" />
+          <NavigationProperty Name="WebsiteUser" Relationship="Self.FK_History_to_WebsiteUser" FromRole="TransactionHistory" ToRole="WebsiteUser" />
+        </EntityType>
+        <EntityType Name="WebsiteUser">
+          <Key>
+            <PropertyRef Name="WebsiteUserId" />
+          </Key>
+          <Property Name="WebsiteUserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="Binary" MaxLength="1026" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Flagged" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BillingInfoes" Relationship="Self.FK_BillingInfo_to_WebsiteUser" FromRole="WebsiteUser" ToRole="BillingInfo" />
+          <NavigationProperty Name="FacilityItems" Relationship="Self.FK_FacilityItem_to_Buyer" FromRole="WebsiteUser" ToRole="FacilityItem" />
+          <NavigationProperty Name="FacilityItems1" Relationship="Self.FK_FacilityItem_to_Seller" FromRole="WebsiteUser" ToRole="FacilityItem" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_to_WebsiteUser" FromRole="WebsiteUser" ToRole="Order" />
+          <NavigationProperty Name="ReviewsReceived" Relationship="Self.FK_Review_to_ReviewedUser" FromRole="WebsiteUser" ToRole="Review" />
+          <NavigationProperty Name="ReviewsWritten" Relationship="Self.FK_Review_to_ReviewingUser" FromRole="WebsiteUser" ToRole="Review" />
+          <NavigationProperty Name="TransactionHistories" Relationship="Self.FK_History_to_WebsiteUser" FromRole="WebsiteUser" ToRole="TransactionHistory" />
+        </EntityType>
+        <Association Name="FK_AdminUser_to_AdminAccessLevel">
+          <End Role="AdminAccesLevel" Type="Self.AdminAccesLevel" Multiplicity="1" />
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminAccesLevel">
+              <PropertyRef Name="AdminAccesLevelId" />
+            </Principal>
+            <Dependent Role="AdminUser">
+              <PropertyRef Name="AccessLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingInfo_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="BillingInfo" Type="Self.BillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="BillingInfo">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_BillingInfo">
+          <End Role="BillingInfo" Type="Self.BillingInfo" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingInfo">
+              <PropertyRef Name="BillingInfoId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="BillingInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityEmployee_to_Facility">
+          <End Role="DropOffFacility" Type="Self.DropOffFacility" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityEmployee" Type="Self.FacilityEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DropOffFacility">
+              <PropertyRef Name="FacilityId" />
+            </Principal>
+            <Dependent Role="FacilityEmployee">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Facility">
+          <End Role="DropOffFacility" Type="Self.DropOffFacility" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DropOffFacility">
+              <PropertyRef Name="FacilityId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="FacilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Buyer">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacilityItem_to_Seller">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="FacilityItem" Type="Self.FacilityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FacilityItem">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_to_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="ProductCategoryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_to_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="ProductTypeId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_to_ReviewedUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ReviewedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_to_ReviewingUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ReviewingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderProduct">
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="UElectricsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminAccesLevels" EntityType="Self.AdminAccesLevel" />
+          <EntitySet Name="AdminUsers" EntityType="Self.AdminUser" />
+          <EntitySet Name="BillingInfoes" EntityType="Self.BillingInfo" />
+          <EntitySet Name="DropOffFacilities" EntityType="Self.DropOffFacility" />
+          <EntitySet Name="FacilityEmployees" EntityType="Self.FacilityEmployee" />
+          <EntitySet Name="FacilityItems" EntityType="Self.FacilityItem" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="TransactionHistories" EntityType="Self.TransactionHistory" />
+          <EntitySet Name="WebsiteUsers" EntityType="Self.WebsiteUser" />
+          <AssociationSet Name="FK_AdminUser_to_AdminAccessLevel" Association="Self.FK_AdminUser_to_AdminAccessLevel">
+            <End Role="AdminAccesLevel" EntitySet="AdminAccesLevels" />
+            <End Role="AdminUser" EntitySet="AdminUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingInfo_to_WebsiteUser" Association="Self.FK_BillingInfo_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="BillingInfo" EntitySet="BillingInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_BillingInfo" Association="Self.FK_History_to_BillingInfo">
+            <End Role="BillingInfo" EntitySet="BillingInfoes" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityEmployee_to_Facility" Association="Self.FK_FacilityEmployee_to_Facility">
+            <End Role="DropOffFacility" EntitySet="DropOffFacilities" />
+            <End Role="FacilityEmployee" EntitySet="FacilityEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Facility" Association="Self.FK_FacilityItem_to_Facility">
+            <End Role="DropOffFacility" EntitySet="DropOffFacilities" />
+            <End Role="FacilityItem" EntitySet="FacilityItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Buyer" Association="Self.FK_FacilityItem_to_Buyer">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="FacilityItem" EntitySet="FacilityItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Order" Association="Self.FK_FacilityItem_to_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="FacilityItem" EntitySet="FacilityItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacilityItem_to_Seller" Association="Self.FK_FacilityItem_to_Seller">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="FacilityItem" EntitySet="FacilityItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_to_WebsiteUser" Association="Self.FK_Order_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_Product" Association="Self.FK_History_to_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_to_ProductCategory" Association="Self.FK_Product_to_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_to_ProductType" Association="Self.FK_Product_to_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_to_ReviewedUser" Association="Self.FK_Review_to_ReviewedUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_to_ReviewingUser" Association="Self.FK_Review_to_ReviewingUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_to_WebsiteUser" Association="Self.FK_History_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
+          </AssociationSet>
+          <AssociationSet Name="OrderProduct" Association="Self.OrderProduct">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UElectricsModelStoreContainer" CdmEntityContainer="UElectricsEntities">
+          <EntitySetMapping Name="AdminAccesLevels">
+            <EntityTypeMapping TypeName="UElectricsModel.AdminAccesLevel">
+              <MappingFragment StoreEntitySet="AdminAccesLevel">
+                <ScalarProperty Name="AdminAccesLevelId" ColumnName="AdminAccesLevelId" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminUsers">
+            <EntityTypeMapping TypeName="UElectricsModel.AdminUser">
+              <MappingFragment StoreEntitySet="AdminUser">
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AccessLevelID" ColumnName="AccessLevelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingInfoes">
+            <EntityTypeMapping TypeName="UElectricsModel.BillingInfo">
+              <MappingFragment StoreEntitySet="BillingInfo">
+                <ScalarProperty Name="BillingInfoId" ColumnName="BillingInfoId" />
+                <ScalarProperty Name="WebsiteUserId" ColumnName="WebsiteUserId" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PayPalEmail" ColumnName="PayPalEmail" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DropOffFacilities">
+            <EntityTypeMapping TypeName="UElectricsModel.DropOffFacility">
+              <MappingFragment StoreEntitySet="DropOffFacility">
+                <ScalarProperty Name="FacilityId" ColumnName="FacilityId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacilityEmployees">
+            <EntityTypeMapping TypeName="UElectricsModel.FacilityEmployee">
+              <MappingFragment StoreEntitySet="FacilityEmployee">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="FacilityId" ColumnName="FacilityId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacilityItems">
+            <EntityTypeMapping TypeName="UElectricsModel.FacilityItem">
+              <MappingFragment StoreEntitySet="FacilityItem">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="FacilityId" ColumnName="FacilityId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="DroppedOf" ColumnName="DroppedOf" />
+                <ScalarProperty Name="PickedUp" ColumnName="PickedUp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="UElectricsModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="WebsiteUserId" ColumnName="WebsiteUserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Flagged" ColumnName="Flagged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="UElectricsModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="Flagged" ColumnName="Flagged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="UElectricsModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="UElectricsModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="UElectricsModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ReviewingUserId" ColumnName="ReviewingUserId" />
+                <ScalarProperty Name="ReviewedUserId" ColumnName="ReviewedUserId" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Flagged" ColumnName="Flagged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionHistories">
+            <EntityTypeMapping TypeName="UElectricsModel.TransactionHistory">
+              <MappingFragment StoreEntitySet="TransactionHistory">
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+                <ScalarProperty Name="WebsiteUserId" ColumnName="WebsiteUserId" />
+                <ScalarProperty Name="BillingInfoId" ColumnName="BillingInfoId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebsiteUsers">
+            <EntityTypeMapping TypeName="UElectricsModel.WebsiteUser">
+              <MappingFragment StoreEntitySet="WebsiteUser">
+                <ScalarProperty Name="WebsiteUserId" ColumnName="WebsiteUserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Flagged" ColumnName="Flagged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="OrderProduct" TypeName="UElectricsModel.OrderProduct" StoreEntitySet="OrderProduct">
+            <EndProperty Name="Order">
+              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+            </EndProperty>
+            <EndProperty Name="Product">
+              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

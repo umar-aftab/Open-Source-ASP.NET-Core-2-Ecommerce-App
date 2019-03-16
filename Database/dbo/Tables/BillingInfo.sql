@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[BillingInfo]
+(
+	[BillingInfoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[WebsiteUserId] UNIQUEIDENTIFIER NOT NULL,
+	[PaymentStatus] BIT NOT NULL,
+	[Password] VARBINARY(1026) NOT NULL, 
+	[PayPalEmail] NVARCHAR(200) NOT NULL,
+	[Street] NVARCHAR(100) NULL,
+	[PostalCode] NVARCHAR(100) NULL,
+	[City] NVARCHAR(100) NULL,
+	CONSTRAINT [FK_BillingInfo_to_WebsiteUser] FOREIGN KEY ([WebsiteUserId]) REFERENCES [WebsiteUser]([WebsiteUserId]) ON DELETE NO ACTION ON UPDATE CASCADE 
+)

@@ -7,8 +7,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ulectrics_uofc;
 
-namespace ulectrics_uofc
+namespace WebApp
 {
     public class Program
     {

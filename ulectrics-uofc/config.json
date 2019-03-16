@@ -1,0 +1,6 @@
+﻿{
+  "ConnectionStrings": {
+    "UElectricsDBContext": "Data Source=.\\MSSQLSERVER2014;Integrated Security=False;User ID=Abdullah;Connect Timeout=15;Encrypt=False;Packet Size=4096;Initial Catalog=UElectrics; Password=UelectricsUSA"
+  }
+
+}
