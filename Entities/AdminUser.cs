@@ -14,11 +14,28 @@ namespace Entities
     
     public partial class AdminUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AdminUser()
+        {
+            this.FlaggedOrders = new HashSet<FlaggedOrder>();
+            this.FlaggedProducts = new HashSet<FlaggedProduct>();
+            this.FlaggedReviews = new HashSet<FlaggedReview>();
+            this.FlaggedUsers = new HashSet<FlaggedUser>();
+        }
+    
         public System.Guid AdminUserId { get; set; }
         public string Name { get; set; }
         public byte[] Password { get; set; }
         public System.Guid AccessLevelID { get; set; }
     
         public virtual AdminAccesLevel AdminAccesLevel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedOrder> FlaggedOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedProduct> FlaggedProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedReview> FlaggedReviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedUser> FlaggedUsers { get; set; }
     }
 }

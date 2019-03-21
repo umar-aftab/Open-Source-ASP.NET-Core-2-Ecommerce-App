@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28cbd7d19ae94a73806cfc94570d3f7f" Name="Diagram1">
-        <EntityTypeShape EntityType="UElectricsModel.AdminAccesLevel" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.AdminUser" Width="1.5" PointX="10" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.BillingInfo" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.DropOffFacility" Width="1.5" PointX="0.625" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.FacilityEmployee" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="28cbd7d19ae94a73806cfc94570d3f7f" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="UElectricsModel.AdminAccesLevel" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.AdminUser" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.BillingInfo" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.DropOffFacility" Width="1.5" PointX="0.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.FacilityEmployee" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.FacilityItem" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.Order" Width="1.5" PointX="11.375" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.Product" Width="1.5" PointX="9.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.ProductCategory" Width="1.5" PointX="9" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.ProductType" Width="1.5" PointX="10.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.ProductCategory" Width="1.5" PointX="9" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.ProductType" Width="1.5" PointX="12" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.Review" Width="1.5" PointX="4" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="UElectricsModel.TransactionHistory" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UElectricsModel.TransactionHistory" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.WebsiteUser" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="UElectricsModel.FK_AdminUser_to_AdminAccessLevel" ManuallyRouted="false" />
         <AssociationConnector Association="UElectricsModel.FK_BillingInfo_to_WebsiteUser" ManuallyRouted="false" />
@@ -34,6 +34,18 @@
         <AssociationConnector Association="UElectricsModel.FK_Review_to_ReviewingUser" ManuallyRouted="false" />
         <AssociationConnector Association="UElectricsModel.FK_History_to_WebsiteUser" ManuallyRouted="false" />
         <AssociationConnector Association="UElectricsModel.OrderProduct" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UElectricsModel.FlaggedOrder" Width="1.5" PointX="13.625" PointY="1.125" />
+        <EntityTypeShape EntityType="UElectricsModel.FlaggedProduct" Width="1.5" PointX="14.25" PointY="7.125" />
+        <EntityTypeShape EntityType="UElectricsModel.FlaggedReview" Width="1.5" PointX="16.25" PointY="1.5" />
+        <EntityTypeShape EntityType="UElectricsModel.FlaggedUser" Width="1.5" PointX="14.25" PointY="4.125" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedOrder_to_AdminUser" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedProduct_to_AdminUser" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedReview_to_AdminUser" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedUser_to_AdminUser" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedOrder_to_Order" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedProduct_to_Order" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedReview_to_Review" />
+        <AssociationConnector Association="UElectricsModel.FK_FlaggedUser_to_WebsiteUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

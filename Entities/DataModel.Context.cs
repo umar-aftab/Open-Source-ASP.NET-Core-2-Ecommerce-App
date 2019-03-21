@@ -38,5 +38,9 @@ namespace Entities
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<TransactionHistory> TransactionHistories { get; set; }
         public virtual DbSet<WebsiteUser> WebsiteUsers { get; set; }
+        public virtual DbSet<FlaggedOrder> FlaggedOrders { get; set; }
+        public virtual DbSet<FlaggedProduct> FlaggedProducts { get; set; }
+        public virtual DbSet<FlaggedReview> FlaggedReviews { get; set; }
+        public virtual DbSet<FlaggedUser> FlaggedUsers { get; set; }
     }
 }

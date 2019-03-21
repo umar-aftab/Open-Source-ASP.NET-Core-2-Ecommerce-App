@@ -84,6 +84,18 @@
     <Compile Include="FacilityItem.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FlaggedOrder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlaggedProduct.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlaggedReview.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlaggedUser.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UElectricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="UElectricsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdminAccesLevel">
           <Key>
             <PropertyRef Name="AdminAccesLevelId" />
@@ -67,6 +67,42 @@
           <Property Name="BuyerId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DroppedOf" Type="bit" Nullable="false" />
           <Property Name="PickedUp" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlaggedOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AdminUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="FlaggedProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AdminUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="FlaggedReview">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="ReviewId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AdminUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="FlaggedUser">
+          <Key>
+            <PropertyRef Name="WebsiteUserId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="WebsiteUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AdminUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -238,6 +274,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FlaggedOrder_to_AdminUser">
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="1" />
+          <End Role="FlaggedOrder" Type="Self.FlaggedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedOrder">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedOrder_to_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="FlaggedOrder" Type="Self.FlaggedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="FlaggedOrder">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedProduct_to_AdminUser">
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="1" />
+          <End Role="FlaggedProduct" Type="Self.FlaggedProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedProduct">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedProduct_to_Order">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="FlaggedProduct" Type="Self.FlaggedProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="FlaggedProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedReview_to_AdminUser">
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="1" />
+          <End Role="FlaggedReview" Type="Self.FlaggedReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedReview">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedReview_to_Review">
+          <End Role="Review" Type="Self.Review" Multiplicity="1" />
+          <End Role="FlaggedReview" Type="Self.FlaggedReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="ReviewId" />
+            </Principal>
+            <Dependent Role="FlaggedReview">
+              <PropertyRef Name="ReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedUser_to_AdminUser">
+          <End Role="AdminUser" Type="Self.AdminUser" Multiplicity="1" />
+          <End Role="FlaggedUser" Type="Self.FlaggedUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedUser">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedUser_to_WebsiteUser">
+          <End Role="WebsiteUser" Type="Self.WebsiteUser" Multiplicity="1" />
+          <End Role="FlaggedUser" Type="Self.FlaggedUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FlaggedUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_History_to_BillingInfo">
           <End Role="BillingInfo" Type="Self.BillingInfo" Multiplicity="1" />
           <End Role="TransactionHistory" Type="Self.TransactionHistory" Multiplicity="*" />
@@ -365,6 +497,10 @@
           <EntitySet Name="DropOffFacility" EntityType="Self.DropOffFacility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FacilityEmployee" EntityType="Self.FacilityEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FacilityItem" EntityType="Self.FacilityItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlaggedOrder" EntityType="Self.FlaggedOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlaggedProduct" EntityType="Self.FlaggedProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlaggedReview" EntityType="Self.FlaggedReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlaggedUser" EntityType="Self.FlaggedUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -400,6 +536,38 @@
           <AssociationSet Name="FK_FacilityItem_to_Seller" Association="Self.FK_FacilityItem_to_Seller">
             <End Role="WebsiteUser" EntitySet="WebsiteUser" />
             <End Role="FacilityItem" EntitySet="FacilityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedOrder_to_AdminUser" Association="Self.FK_FlaggedOrder_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUser" />
+            <End Role="FlaggedOrder" EntitySet="FlaggedOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedOrder_to_Order" Association="Self.FK_FlaggedOrder_to_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="FlaggedOrder" EntitySet="FlaggedOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedProduct_to_AdminUser" Association="Self.FK_FlaggedProduct_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUser" />
+            <End Role="FlaggedProduct" EntitySet="FlaggedProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedProduct_to_Order" Association="Self.FK_FlaggedProduct_to_Order">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="FlaggedProduct" EntitySet="FlaggedProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedReview_to_AdminUser" Association="Self.FK_FlaggedReview_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUser" />
+            <End Role="FlaggedReview" EntitySet="FlaggedReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedReview_to_Review" Association="Self.FK_FlaggedReview_to_Review">
+            <End Role="Review" EntitySet="Review" />
+            <End Role="FlaggedReview" EntitySet="FlaggedReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedUser_to_AdminUser" Association="Self.FK_FlaggedUser_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUser" />
+            <End Role="FlaggedUser" EntitySet="FlaggedUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedUser_to_WebsiteUser" Association="Self.FK_FlaggedUser_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUser" />
+            <End Role="FlaggedUser" EntitySet="FlaggedUser" />
           </AssociationSet>
           <AssociationSet Name="FK_History_to_BillingInfo" Association="Self.FK_History_to_BillingInfo">
             <End Role="BillingInfo" EntitySet="BillingInfo" />
@@ -442,8 +610,7 @@
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UElectricsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -464,6 +631,10 @@
           <Property Name="Password" Type="Binary" MaxLength="1026" FixedLength="false" />
           <Property Name="AccessLevelID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="AdminAccesLevel" Relationship="Self.FK_AdminUser_to_AdminAccessLevel" FromRole="AdminUser" ToRole="AdminAccesLevel" />
+          <NavigationProperty Name="FlaggedOrders" Relationship="UElectricsModel.FK_FlaggedOrder_to_AdminUser" FromRole="AdminUser" ToRole="FlaggedOrder" />
+          <NavigationProperty Name="FlaggedProducts" Relationship="UElectricsModel.FK_FlaggedProduct_to_AdminUser" FromRole="AdminUser" ToRole="FlaggedProduct" />
+          <NavigationProperty Name="FlaggedReviews" Relationship="UElectricsModel.FK_FlaggedReview_to_AdminUser" FromRole="AdminUser" ToRole="FlaggedReview" />
+          <NavigationProperty Name="FlaggedUsers" Relationship="UElectricsModel.FK_FlaggedUser_to_AdminUser" FromRole="AdminUser" ToRole="FlaggedUser" />
         </EntityType>
         <EntityType Name="BillingInfo">
           <Key>
@@ -534,6 +705,7 @@
           <NavigationProperty Name="FacilityItems" Relationship="Self.FK_FacilityItem_to_Order" FromRole="Order" ToRole="FacilityItem" />
           <NavigationProperty Name="WebsiteUser" Relationship="Self.FK_Order_to_WebsiteUser" FromRole="Order" ToRole="WebsiteUser" />
           <NavigationProperty Name="Products" Relationship="Self.OrderProduct" FromRole="Order" ToRole="Product" />
+          <NavigationProperty Name="FlaggedOrders" Relationship="UElectricsModel.FK_FlaggedOrder_to_Order" FromRole="Order" ToRole="FlaggedOrder" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -551,6 +723,7 @@
           <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_to_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_to_ProductType" FromRole="Product" ToRole="ProductType" />
           <NavigationProperty Name="Orders" Relationship="Self.OrderProduct" FromRole="Product" ToRole="Order" />
+          <NavigationProperty Name="FlaggedProducts" Relationship="UElectricsModel.FK_FlaggedProduct_to_Order" FromRole="Product" ToRole="FlaggedProduct" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -582,6 +755,7 @@
           <Property Name="Flagged" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ReviewedUser" Relationship="Self.FK_Review_to_ReviewedUser" FromRole="Review" ToRole="WebsiteUser" />
           <NavigationProperty Name="ReviewingUser" Relationship="Self.FK_Review_to_ReviewingUser" FromRole="Review" ToRole="WebsiteUser" />
+          <NavigationProperty Name="FlaggedReviews" Relationship="UElectricsModel.FK_FlaggedReview_to_Review" FromRole="Review" ToRole="FlaggedReview" />
         </EntityType>
         <EntityType Name="TransactionHistory">
           <Key>
@@ -613,6 +787,7 @@
           <NavigationProperty Name="ReviewsReceived" Relationship="Self.FK_Review_to_ReviewedUser" FromRole="WebsiteUser" ToRole="Review" />
           <NavigationProperty Name="ReviewsWritten" Relationship="Self.FK_Review_to_ReviewingUser" FromRole="WebsiteUser" ToRole="Review" />
           <NavigationProperty Name="TransactionHistories" Relationship="Self.FK_History_to_WebsiteUser" FromRole="WebsiteUser" ToRole="TransactionHistory" />
+          <NavigationProperty Name="FlaggedUsers" Relationship="UElectricsModel.FK_FlaggedUser_to_WebsiteUser" FromRole="WebsiteUser" ToRole="FlaggedUser" />
         </EntityType>
         <Association Name="FK_AdminUser_to_AdminAccessLevel">
           <End Role="AdminAccesLevel" Type="Self.AdminAccesLevel" Multiplicity="1" />
@@ -882,7 +1057,183 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="FlaggedOrders" EntityType="UElectricsModel.FlaggedOrder" />
+          <EntitySet Name="FlaggedProducts" EntityType="UElectricsModel.FlaggedProduct" />
+          <EntitySet Name="FlaggedReviews" EntityType="UElectricsModel.FlaggedReview" />
+          <EntitySet Name="FlaggedUsers" EntityType="UElectricsModel.FlaggedUser" />
+          <AssociationSet Name="FK_FlaggedOrder_to_AdminUser" Association="UElectricsModel.FK_FlaggedOrder_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUsers" />
+            <End Role="FlaggedOrder" EntitySet="FlaggedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedProduct_to_AdminUser" Association="UElectricsModel.FK_FlaggedProduct_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUsers" />
+            <End Role="FlaggedProduct" EntitySet="FlaggedProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedReview_to_AdminUser" Association="UElectricsModel.FK_FlaggedReview_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUsers" />
+            <End Role="FlaggedReview" EntitySet="FlaggedReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedUser_to_AdminUser" Association="UElectricsModel.FK_FlaggedUser_to_AdminUser">
+            <End Role="AdminUser" EntitySet="AdminUsers" />
+            <End Role="FlaggedUser" EntitySet="FlaggedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedOrder_to_Order" Association="UElectricsModel.FK_FlaggedOrder_to_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="FlaggedOrder" EntitySet="FlaggedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedProduct_to_Order" Association="UElectricsModel.FK_FlaggedProduct_to_Order">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="FlaggedProduct" EntitySet="FlaggedProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedReview_to_Review" Association="UElectricsModel.FK_FlaggedReview_to_Review">
+            <End Role="Review" EntitySet="Reviews" />
+            <End Role="FlaggedReview" EntitySet="FlaggedReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlaggedUser_to_WebsiteUser" Association="UElectricsModel.FK_FlaggedUser_to_WebsiteUser">
+            <End Role="WebsiteUser" EntitySet="WebsiteUsers" />
+            <End Role="FlaggedUser" EntitySet="FlaggedUsers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="FlaggedOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <Property Name="AdminUserId" Type="Guid" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminUser" Relationship="UElectricsModel.FK_FlaggedOrder_to_AdminUser" FromRole="FlaggedOrder" ToRole="AdminUser" />
+          <NavigationProperty Name="Order" Relationship="UElectricsModel.FK_FlaggedOrder_to_Order" FromRole="FlaggedOrder" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="FlaggedProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="ProductId" Type="Guid" Nullable="false" />
+          <Property Name="AdminUserId" Type="Guid" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminUser" Relationship="UElectricsModel.FK_FlaggedProduct_to_AdminUser" FromRole="FlaggedProduct" ToRole="AdminUser" />
+          <NavigationProperty Name="Product" Relationship="UElectricsModel.FK_FlaggedProduct_to_Order" FromRole="FlaggedProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="FlaggedReview">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="ReviewId" Type="Guid" Nullable="false" />
+          <Property Name="AdminUserId" Type="Guid" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminUser" Relationship="UElectricsModel.FK_FlaggedReview_to_AdminUser" FromRole="FlaggedReview" ToRole="AdminUser" />
+          <NavigationProperty Name="Review" Relationship="UElectricsModel.FK_FlaggedReview_to_Review" FromRole="FlaggedReview" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="FlaggedUser">
+          <Key>
+            <PropertyRef Name="WebsiteUserId" />
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="WebsiteUserId" Type="Guid" Nullable="false" />
+          <Property Name="AdminUserId" Type="Guid" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminUser" Relationship="UElectricsModel.FK_FlaggedUser_to_AdminUser" FromRole="FlaggedUser" ToRole="AdminUser" />
+          <NavigationProperty Name="WebsiteUser" Relationship="UElectricsModel.FK_FlaggedUser_to_WebsiteUser" FromRole="FlaggedUser" ToRole="WebsiteUser" />
+        </EntityType>
+        <Association Name="FK_FlaggedOrder_to_AdminUser">
+          <End Type="UElectricsModel.AdminUser" Role="AdminUser" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedOrder" Role="FlaggedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedOrder">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedProduct_to_AdminUser">
+          <End Type="UElectricsModel.AdminUser" Role="AdminUser" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedProduct" Role="FlaggedProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedProduct">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedReview_to_AdminUser">
+          <End Type="UElectricsModel.AdminUser" Role="AdminUser" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedReview" Role="FlaggedReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedReview">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedUser_to_AdminUser">
+          <End Type="UElectricsModel.AdminUser" Role="AdminUser" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedUser" Role="FlaggedUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminUser">
+              <PropertyRef Name="AdminUserId" />
+            </Principal>
+            <Dependent Role="FlaggedUser">
+              <PropertyRef Name="AdminUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedOrder_to_Order">
+          <End Type="UElectricsModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedOrder" Role="FlaggedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="FlaggedOrder">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedProduct_to_Order">
+          <End Type="UElectricsModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedProduct" Role="FlaggedProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="FlaggedProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedReview_to_Review">
+          <End Type="UElectricsModel.Review" Role="Review" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedReview" Role="FlaggedReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="ReviewId" />
+            </Principal>
+            <Dependent Role="FlaggedReview">
+              <PropertyRef Name="ReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlaggedUser_to_WebsiteUser">
+          <End Type="UElectricsModel.WebsiteUser" Role="WebsiteUser" Multiplicity="1" />
+          <End Type="UElectricsModel.FlaggedUser" Role="FlaggedUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebsiteUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Principal>
+            <Dependent Role="FlaggedUser">
+              <PropertyRef Name="WebsiteUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1045,6 +1396,42 @@
               <ScalarProperty Name="ProductId" ColumnName="ProductId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="FlaggedOrders">
+            <EntityTypeMapping TypeName="UElectricsModel.FlaggedOrder">
+              <MappingFragment StoreEntitySet="FlaggedOrder">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlaggedProducts">
+            <EntityTypeMapping TypeName="UElectricsModel.FlaggedProduct">
+              <MappingFragment StoreEntitySet="FlaggedProduct">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlaggedReviews">
+            <EntityTypeMapping TypeName="UElectricsModel.FlaggedReview">
+              <MappingFragment StoreEntitySet="FlaggedReview">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlaggedUsers">
+            <EntityTypeMapping TypeName="UElectricsModel.FlaggedUser">
+              <MappingFragment StoreEntitySet="FlaggedUser">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="WebsiteUserId" ColumnName="WebsiteUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

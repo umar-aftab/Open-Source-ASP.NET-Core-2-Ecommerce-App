@@ -19,6 +19,7 @@ namespace Entities
         {
             this.TransactionHistories = new HashSet<TransactionHistory>();
             this.Orders = new HashSet<Order>();
+            this.FlaggedProducts = new HashSet<FlaggedProduct>();
         }
     
         public System.Guid ProductId { get; set; }
@@ -36,5 +37,7 @@ namespace Entities
         public virtual ProductType ProductType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedProduct> FlaggedProducts { get; set; }
     }
 }

@@ -75,5 +75,9 @@
     <Build Include="dbo\Tables\OrderProduct.sql" />
     <Build Include="dbo\Tables\Review.sql" />
     <Build Include="dbo\Tables\TransactionHistory.sql" />
+    <Build Include="dbo\Tables\FlaggedUser.sql" />
+    <Build Include="dbo\Tables\FlaggedReview.sql" />
+    <Build Include="dbo\Tables\FlaggedOrder.sql" />
+    <Build Include="dbo\Tables\FlaggedProduct.sql" />
   </ItemGroup>
 </Project>

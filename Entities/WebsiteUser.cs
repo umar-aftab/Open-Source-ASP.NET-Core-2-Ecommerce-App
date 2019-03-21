@@ -24,6 +24,7 @@ namespace Entities
             this.ReviewsReceived = new HashSet<Review>();
             this.ReviewsWritten = new HashSet<Review>();
             this.TransactionHistories = new HashSet<TransactionHistory>();
+            this.FlaggedUsers = new HashSet<FlaggedUser>();
         }
     
         public System.Guid WebsiteUserId { get; set; }
@@ -48,5 +49,7 @@ namespace Entities
         public virtual ICollection<Review> ReviewsWritten { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedUser> FlaggedUsers { get; set; }
     }
 }

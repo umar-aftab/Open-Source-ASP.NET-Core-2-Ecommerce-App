@@ -14,6 +14,12 @@ namespace Entities
     
     public partial class Review
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Review()
+        {
+            this.FlaggedReviews = new HashSet<FlaggedReview>();
+        }
+    
         public System.Guid ReviewId { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
@@ -25,5 +31,7 @@ namespace Entities
     
         public virtual WebsiteUser ReviewedUser { get; set; }
         public virtual WebsiteUser ReviewingUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlaggedReview> FlaggedReviews { get; set; }
     }
 }
