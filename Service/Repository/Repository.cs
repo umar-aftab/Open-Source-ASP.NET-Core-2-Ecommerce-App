@@ -5,14 +5,14 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
-namespace Services
+namespace Service
 {
     public class Repository<T> : IGenericRepository<T> where T : class
     {
         internal ContextEntities _context;
-        internal DbSet<T> dbSet;
+        internal DbSet<T> _dbset;
         public IEnumerable<T> All()
         {
             throw new NotImplementedException();
