@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28cbd7d19ae94a73806cfc94570d3f7f" Name="Diagram1" ZoomLevel="81">
+      <Diagram DiagramId="28cbd7d19ae94a73806cfc94570d3f7f" Name="Diagram1" ZoomLevel="106">
         <EntityTypeShape EntityType="UElectricsModel.AdminAccesLevel" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.AdminUser" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="UElectricsModel.BillingInfo" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />

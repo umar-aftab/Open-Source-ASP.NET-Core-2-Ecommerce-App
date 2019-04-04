@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
-namespace WebApp
+namespace WebAppUser
 {
     public class Startup
     {
@@ -25,6 +26,7 @@ namespace WebApp
         {
             services.AddMvc();
             services.AddMvcCore();
+            services.AddAutoMapper();
             
         }
 
@@ -36,11 +38,13 @@ namespace WebApp
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc(
-                routes=> 
+                routes =>
                 {
                     routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 }
             );
+            app.UseStaticFiles();
+
         }
     }
 }
