@@ -31,10 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,15 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdminAccessLevelRepository.cs" />
     <Compile Include="Repository\AdminUserRepository.cs" />
+    <Compile Include="Repository\BillingInfoRepository.cs" />
+    <Compile Include="Repository\DropOffFacilityRepository.cs" />
     <Compile Include="Repository\FacilityEmployeeRepository.cs" />
+    <Compile Include="Repository\FacilityItemRespository.cs" />
+    <Compile Include="Repository\FlaggedOrderRepository.cs" />
+    <Compile Include="Repository\FlaggedProductRepository.cs" />
+    <Compile Include="Repository\FlaggedReviewRepository.cs" />
+    <Compile Include="Repository\FlaggedUserRepository.cs" />
     <Compile Include="Repository\IGenericRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
+    <Compile Include="Repository\ProductCategoryRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\ProductTypeRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\ReviewRepository.cs" />
+    <Compile Include="Repository\TransactionHistoryRepository.cs" />
     <Compile Include="Repository\WebsiteUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +77,10 @@
       <Project>{06ae760b-d070-4a8c-9f19-966cfc25d98b}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

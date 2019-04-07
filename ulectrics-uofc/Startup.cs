@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using Service;
+using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAppUser
 {
@@ -24,9 +27,12 @@ namespace WebAppUser
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = configuration.GetConnectionString("UElectricsDBContext");
             services.AddMvc();
             services.AddMvcCore();
             services.AddAutoMapper();
+           
+            services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
             
         }
 

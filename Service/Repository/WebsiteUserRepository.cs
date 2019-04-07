@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Service
 {
-    class WebsiteUserRepository
+    public class WebsiteUserRepository : Repository<Entities.WebsiteUser>
     {
+        public WebsiteUserRepository() { }
+        public WebsiteUserRepository(ContextEntities context) : base(context)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+        }
     }
 }

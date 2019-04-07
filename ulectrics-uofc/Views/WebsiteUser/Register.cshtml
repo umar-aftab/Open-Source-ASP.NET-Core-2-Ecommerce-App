@@ -1,0 +1,86 @@
+﻿@model Entities.WebsiteUser
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_LayoutForm";
+}
+
+<div class="row">
+    <div class="col-xs-10">
+        <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="WebsiteUser" asp-action="Register" method="post">
+        <div class="">
+            <div class="row">
+                <div class=" col-xs-offset-2  col-xs-10">
+                    <h1>Registration Form</h1>
+                    <hr />
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-offset-2  col-xs-3">
+                    <div class="form-group input-group">
+                        <label class="has-float-label">First Name</label>
+
+                        <input asp-for="FirstName" type="text" name="FirstName" class="form-control" />
+
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group input-group">
+                        <label class="has-float-label">Last Name</label>
+
+                        <input asp-for="LastName" type="text" name="LastName" class="form-control" />
+
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group input-group">
+                        <label class="has-float-label">User Name</label>
+
+                        <input asp-for="UserName" type="text" name="UserName" class="form-control" />
+
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-offset-2  col-xs-5">
+                    <div class="form-group input-group">
+                        <label class="has-float-label">Email</label>
+
+                        <input asp-for="Email" type="text" name="Email" class="form-control" />
+
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="form-group input-group">
+                        <label class="has-float-label">Password</label>
+
+                        <input asp-for="Password" type="password" name="Password" class="form-control" />
+
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3 col-xs-offset-9">
+                    <input type="submit" class="btn btn-action" value="Submit" />
+                </div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+</div>

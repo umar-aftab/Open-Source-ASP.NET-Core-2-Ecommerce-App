@@ -11,19 +11,19 @@ namespace Service
     {
         IQueryable<T> AsQueryable();
         bool Any(Expression<Func<T, bool>> filter = null);
+        int Count(Expression<Func<T, bool>> filter = null);
 
         IEnumerable<T> All();
-        Task<IEnumerable<T>> AllAsync();
-
-        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
-        IEnumerable<T> Take(Expression<Func<T, bool>> filter = null, int take = 10, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
+        //Task<IEnumerable<T>> AllAsync();
+        IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null/*, string includeProperties = ""*/);
+        //IEnumerable<T> Take(Expression<Func<T, bool>> filter = null, int take = 10, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
         T First(Expression<Func<T, bool>> filter);
-        T FirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = "");
         T GetById(object id);
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
         void Delete(object id);
+        void MarkDeleted(T entity);
 
     }
 }

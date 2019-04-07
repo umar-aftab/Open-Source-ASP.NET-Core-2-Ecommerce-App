@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace Service
 {
@@ -13,69 +13,112 @@ namespace Service
     {
         internal ContextEntities _context;
         internal DbSet<T> _dbset;
+        //internal Guid _userId;
+
+        public Repository()
+        {
+            _dbset = _context.Set<T>();
+        }
+
+        public Repository(ContextEntities context)
+        {
+            _context = context;
+            _dbset = _context.Set<T>();
+        }
+
+        //public Repository(ContextEntities context,Guid user)
+        //{
+        //    _context = context;
+        //    _userId = user;
+        //    _dbset = _context.Set<T>();
+        //}
+
+
         public IEnumerable<T> All()
         {
-            throw new NotImplementedException();
+            return _dbset;
         }
 
-        public Task<IEnumerable<T>> AllAsync()
+        //public virtual async Task<IEnumerable<T>> AllAsync()
+        //{
+        //    return await _dbset.ToListAsync<T>();
+        //}
+
+        public virtual bool Any(Expression<Func<T, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return _dbset.Any(filter);
         }
 
-        public bool Any(Expression<Func<T, bool>> filter = null)
+        public virtual int Count(Expression<Func<T, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return _dbset.Count(filter);
         }
 
-        public IQueryable<T> AsQueryable()
+        public virtual IQueryable<T> AsQueryable()
         {
-            throw new NotImplementedException();
+            var query = _dbset.AsQueryable();
+            return query;
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
-            throw new NotImplementedException();
+            if (_context.Entry(entity).State == EntityState.Detached)
+            {
+                _dbset.Attach(entity);
+            }
+            _dbset.Remove(entity);
         }
 
         public void Delete(object id)
         {
-            throw new NotImplementedException();
+            var d = _dbset.Find(id);
+            _dbset.Remove(d);
         }
 
         public T First(Expression<Func<T, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _dbset.First(filter);
         }
 
-        public T FirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = "")
+        public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null/*, string includeProperties = ""*/)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
-        {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbset;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if(orderBy != null)
+            {
+                query = orderBy(query);
+            }
+            return query;
         }
 
         public T GetById(object id)
         {
-            throw new NotImplementedException();
+            return _dbset.Find(id);
         }
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
-            throw new NotImplementedException();
+            _dbset.Add(entity);
         }
 
-        public IEnumerable<T> Take(Expression<Func<T, bool>> filter = null, int take = 10, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public virtual void MarkDeleted(T entity)
         {
-            throw new NotImplementedException();
+            ((IFlagged)entity).Flagged = true;
+            this.Update(entity);
         }
+
+        //public IEnumerable<T> Take(Expression<Func<T, bool>> filter = null, int take = 10, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbset.Attach(entity);
+            _context.Entry(entity);
         }
     }
 }
