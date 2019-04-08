@@ -9,6 +9,9 @@ namespace CoreEntities
     {
         public ContextEntities()
         {
+        }
+        public ContextEntities(DbContextOptions<UElectricsDbContext> options) : base(options)
+        {
            
         }
         public override int SaveChanges()
