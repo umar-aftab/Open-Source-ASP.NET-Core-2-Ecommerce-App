@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : MainController
     {
         public IActionResult Index()
         {
