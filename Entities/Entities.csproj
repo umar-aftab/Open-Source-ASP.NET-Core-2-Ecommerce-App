@@ -78,11 +78,6 @@
     <Compile Include="DropOffFacility.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\IFlagged.cs" />
-    <Compile Include="Extensions\Order.cs" />
-    <Compile Include="Extensions\Product.cs" />
-    <Compile Include="Extensions\Review.cs" />
-    <Compile Include="Extensions\WebsiteUser.cs" />
     <Compile Include="FacilityEmployee.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

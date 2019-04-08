@@ -36,7 +36,7 @@
         <AssociationConnector Association="UElectricsModel.OrderProduct" ManuallyRouted="false" />
         <EntityTypeShape EntityType="UElectricsModel.FlaggedOrder" Width="1.5" PointX="13.625" PointY="1.125" />
         <EntityTypeShape EntityType="UElectricsModel.FlaggedProduct" Width="1.5" PointX="14.25" PointY="7.125" />
-        <EntityTypeShape EntityType="UElectricsModel.FlaggedReview" Width="1.5" PointX="16.25" PointY="1.5" />
+        <EntityTypeShape EntityType="UElectricsModel.FlaggedReview" Width="1.5" PointX="15.75" PointY="1.375" />
         <EntityTypeShape EntityType="UElectricsModel.FlaggedUser" Width="1.5" PointX="14.25" PointY="4.125" />
         <AssociationConnector Association="UElectricsModel.FK_FlaggedOrder_to_AdminUser" />
         <AssociationConnector Association="UElectricsModel.FK_FlaggedProduct_to_AdminUser" />
