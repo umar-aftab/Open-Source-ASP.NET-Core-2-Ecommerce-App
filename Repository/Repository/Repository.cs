@@ -125,5 +125,11 @@ namespace Service
         {
             return _context.SaveChanges();
         }
+
+        public void MarkUnDelete(T entity)
+        {
+            ((IFlagged)entity).Flagged = false;
+            this.Update(entity);
+        }
     }
 }

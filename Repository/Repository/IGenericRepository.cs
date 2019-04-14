@@ -24,6 +24,7 @@ namespace Service
         void Delete(T entity);
         void Delete(object id);
         void MarkDeleted(T entity);
+        void MarkUnDelete(T entity);
 
     }
 }

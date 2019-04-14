@@ -147,6 +147,10 @@ namespace AdminApp.Controllers
         public IActionResult ViewFacilityEmployees()
         {
             var employees = facilityEmployeeRepository.All();
+            foreach (var e in employees)
+            {
+                e.Facility = dropOffFacilityRepository.GetById(e.FacilityId);
+            }
             return View(employees);
         }
 
@@ -347,6 +351,30 @@ namespace AdminApp.Controllers
         }
 
         [Authorize]
+        public IActionResult UnFlagUser(Guid WebsiteUserId)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = websiteUserRepository.GetById(WebsiteUserId);
+                websiteUserRepository.MarkUnDelete(user);
+                websiteUserRepository.CommitChanges();
+                Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                FlaggedUser flaggedUser = new FlaggedUser();
+                flaggedUser.AdminUserId = AdminId;
+                flaggedUser.WebsiteUserId = WebsiteUserId;
+                flaggedUser.Comments = " ";
+                flaggedUserRepository.Delete(flaggedUser);
+                flaggedUserRepository.CommitChanges();
+                return RedirectToAction("ViewUsers");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "User couldnt be unflagged.");
+                return RedirectToAction("Error", "AdminUser");
+            }
+        }
+
+        [Authorize]
         public IActionResult FlagProduct(Guid ProductId)
         {
             if (ModelState.IsValid)
@@ -366,6 +394,30 @@ namespace AdminApp.Controllers
             else
             {
                 ModelState.AddModelError("Error", "Product couldnt be flagged.");
+                return RedirectToAction("Error", "AdminUser");
+            }
+        }
+
+        [Authorize]
+        public IActionResult UnFlagProduct(Guid ProductId)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = productRepository.GetById(ProductId);
+                productRepository.MarkUnDelete(product);
+                productRepository.CommitChanges();
+                Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                FlaggedProduct flaggedPro = new FlaggedProduct();
+                flaggedPro.AdminUserId = AdminId;
+                flaggedPro.ProductId = ProductId;
+                flaggedPro.Comments = " ";
+                flaggedProductRepository.Delete(flaggedPro);
+                flaggedProductRepository.CommitChanges();
+                return RedirectToAction("ViewProducts");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Product couldnt be unflagged.");
                 return RedirectToAction("Error", "AdminUser");
             }
         }
@@ -395,6 +447,30 @@ namespace AdminApp.Controllers
         }
 
         [Authorize]
+        public IActionResult UnFlagReview(Guid ReviewId)
+        {
+            if (ModelState.IsValid)
+            {
+                var rev = reviewRepository.GetById(ReviewId);
+                reviewRepository.MarkUnDelete(rev);
+                reviewRepository.CommitChanges();
+                Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                FlaggedReview flaggedRev = new FlaggedReview();
+                flaggedRev.AdminUserId = AdminId;
+                flaggedRev.ReviewId = ReviewId;
+                flaggedRev.Comments = " ";
+                flaggedReviewRepository.Delete(flaggedRev);
+                flaggedReviewRepository.CommitChanges();
+                return RedirectToAction("ViewReviews");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Review couldnt be unflagged.");
+                return RedirectToAction("Error", "AdminUser");
+            }
+        }
+
+        [Authorize]
         public IActionResult FlagOrder(Guid OrderId)
         {
             if (ModelState.IsValid)
@@ -414,6 +490,30 @@ namespace AdminApp.Controllers
             else
             {
                 ModelState.AddModelError("Error", "Order couldnt be flagged.");
+                return RedirectToAction("Error", "AdminUser");
+            }
+        }
+
+        [Authorize]
+        public IActionResult UnFlagOrder(Guid OrderId)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = orderRepository.GetById(OrderId);
+                orderRepository.MarkUnDelete(order);
+                orderRepository.CommitChanges();
+                Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                FlaggedOrder flaggedOrd = new FlaggedOrder();
+                flaggedOrd.AdminUserId = AdminId;
+                flaggedOrd.OrderId = OrderId;
+                flaggedOrd.Comments = " ";
+                flaggedOrderRepository.Delete(flaggedOrd);
+                flaggedOrderRepository.CommitChanges();
+                return RedirectToAction("ViewOrders");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Order couldnt be unflagged.");
                 return RedirectToAction("Error", "AdminUser");
             }
         }
