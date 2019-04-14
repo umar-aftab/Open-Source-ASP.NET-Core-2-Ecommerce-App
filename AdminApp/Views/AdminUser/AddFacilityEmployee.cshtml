@@ -1,0 +1,80 @@
+﻿@model CoreEntities.FacilityEmployee
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<div class="">
+    <div class="col-xs-10">
+        <h1>Add Facility Employee</h1>
+        <hr />
+        <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="AdminUser" asp-action="AddFacilityEmployee" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input asp-for="FacilityId" name="FacilityId" type="hidden" />
+                <label class="has-float-label">
+                    Employee Name
+
+                    <input asp-for="Name" type="text" name="Name" class="form-control" />
+
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </label>
+                <br />
+
+                <label class="has-float-label">
+                    Street
+
+                    <input asp-for="Street" type="text" name="Street" class="form-control" />
+
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </label>
+                <br />
+
+                <label class="has-float-label">
+                    City
+
+                    <input asp-for="City" type="text" name="City" class="form-control" />
+
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </label>
+                <br />
+
+                <label class="has-float-label">
+                    PostalCode
+
+                    <input asp-for="PostalCode" type="text" name="PostalCode" class="form-control" />
+
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </label>
+                <br />
+
+                <label class="has-float-label">
+                    Email
+
+                    <input asp-for="Email" type="text" name="Email" class="form-control" />
+
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </label>
+                <br />
+
+                <label class="has-float-label">
+                    Password
+
+                    <input asp-for="Password" type="password" name="Password" class="form-control" />
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </label>
+                <br />
+
+                <input type="submit" class="btn btn-action" value="Submit" />
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>

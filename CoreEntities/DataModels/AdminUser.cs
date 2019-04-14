@@ -15,7 +15,7 @@ namespace CoreEntities
 
         public Guid AdminUserId { get; set; }
         public string Name { get; set; }
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         public Guid AccessLevelId { get; set; }
 
         public AdminAccesLevel AccessLevel { get; set; }

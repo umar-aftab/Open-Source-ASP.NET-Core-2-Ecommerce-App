@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[DropOffFacility]
 (
 	[FacilityId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[FacilityName] NVARCHAR(100) NOT NULL,
 	[Street] NVARCHAR(50) NULL,
 	[PostalCode] NVARCHAR(10) NULL,
 	[City] NVARCHAR(50) NULL,

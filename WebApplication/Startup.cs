@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Service;
 using CoreEntities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApplication
 {
@@ -40,6 +41,13 @@ namespace WebApplication
                     options.UseSqlServer(connectionString);
                 }
             );
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(
+                    options =>
+                    {
+                        options.LoginPath = new PathString("/WebsiteUser/Login");
+                    }
+                );
             services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
 
         }
@@ -51,6 +59,7 @@ namespace WebApplication
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseAuthentication();
             app.UseMvc(
                 routes =>
                 {

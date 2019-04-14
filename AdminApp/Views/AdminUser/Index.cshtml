@@ -1,0 +1,22 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+
+}
+
+<div>
+    @ViewBag.Message
+</div>
+
+<div class="col-xs-10">
+    <div class="btn-group-lg">
+        <a href="@Url.Action("ViewUsers","AdminUser")"><button type="button" class="btn btn-secondary">View Users</button></a>
+        <a href="@Url.Action("ViewProducts","AdminUser")"><button type="button" class="btn btn-secondary">View Products</button></a>
+        <a href="@Url.Action("ViewReviews","AdminUser")"><button type="button" class="btn btn-secondary">View Reviews</button></a>
+        <a href="@Url.Action("ViewOrders","AdminUser")"><button type="button" class="btn btn-secondary">View Orders</button></a>
+        <a href="@Url.Action("ViewFacilities","AdminUser")"><button type="button" class="btn btn-secondary">View Facilities</button></a>
+        <a href="@Url.Action("ViewFacilityEmployees","AdminUser")"><button type="button" class="btn btn-secondary">View Facility Employees</button></a>
+    </div>
+    
+</div>
+<a href="@Url.Action("Logout","AdminUser")"><button type="button" class="btn-secondary">Logout</button></a>

@@ -120,5 +120,10 @@ namespace Service
             _dbset.Attach(entity);
             _context.Entry(entity);
         }
+
+        public virtual int CommitChanges()
+        {
+            return _context.SaveChanges();
+        }
     }
 }

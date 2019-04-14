@@ -7,6 +7,7 @@
 	[Street] NVARCHAR(100) NULL,
 	[PostalCode] NVARCHAR(100) NULL,
 	[City] NVARCHAR(100) NULL,
-	CONSTRAINT [FK_FacilityEmployee_to_Facility] FOREIGN KEY ([FacilityId]) REFERENCES [DropOffFacility]([FacilityId]) ON DELETE CASCADE ON UPDATE CASCADE 
+	[Password] NVARCHAR(100) NULL, 
+    CONSTRAINT [FK_FacilityEmployee_to_Facility] FOREIGN KEY ([FacilityId]) REFERENCES [DropOffFacility]([FacilityId]) ON DELETE CASCADE ON UPDATE CASCADE 
 
 )

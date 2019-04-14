@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using CoreEntities;
 using Service;
 
-namespace WebApp.Controllers
+namespace WebApplication.Controllers
 {
     public class ProductController : MainController
     {

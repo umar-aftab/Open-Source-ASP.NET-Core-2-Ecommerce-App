@@ -1,0 +1,146 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background: #E6E6E6;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+html {
+    font-size: 18px;
+}
+
+
+
+h1 {
+    font-size: 32px;
+    padding-bottom: 20px;
+}
+
+hr {
+    border-bottom: 2px solid #CCCCCC;
+}
+
+
+h3 {
+    font-size: 24px;
+}
+
+table th{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+table td {
+    font-size: 16px;
+}
+
+
+body.anonymous {
+}
+
+.form-group {
+    width: 100%;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.container.header {
+    width: 100%;
+}
+
+
+.btn {
+    color: white;
+    background-color: #0071BC;
+    background-image: none;
+    border-radius: 0;
+    width: 100%;
+    /*display: block;*/
+    font-size: 18px;
+    padding: 15px;
+    border-color: #0071BC;
+}
+
+    .btn:hover {
+        border-color: #074E6D;
+        background-color: #074E6D;
+    }
+
+
+textarea {
+    min-height: 150px;
+}
+
+
+.has-float-label label {
+    position: absolute;
+    cursor: text;
+    font-size: 95%;
+    opacity: 1;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    top: 10px !important;
+    left: .75rem;
+    z-index: 3;
+    line-height: 1;
+    padding: 0 1px;
+    color: #074E6D;
+    font-weight: normal;
+}
+
+    .has-float-label label::after {
+        content: " ";
+        display: block;
+        position: absolute;
+        background: #fff;
+        height: 2px;
+        top: 75%;
+        left: -.2em;
+        right: -.2em;
+        z-index: -1
+    }
+
+.has-float-label .form-control::-webkit-input-placeholder {
+    opacity: 1;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+
+.input-group .has-float-label {
+    display: table-cell
+}
+
+    .input-group .has-float-label .form-control {
+        border-radius: 0 !important;
+        border-color: @grey;
+        height: 60px;
+        padding-top: 30px;
+        font-size: 18px;
+        width: 100%;
+        color: #464646;
+        font-weight: normal;
+    }
+
+    .input-group .has-float-label:not(:last-child) .form-control {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0
+    }
+
+    .input-group .has-float-label:not(:first-child) .form-control {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        margin-left: -1px
+    }
+
+.input-group .chosen-container a.chosen-single span {
+    padding-top: 10px;
+}

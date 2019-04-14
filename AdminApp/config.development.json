@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "UElectricsDBContext": "Data Source=UMARABUHAFS;Initial Catalog=UElectrics;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  }
+}

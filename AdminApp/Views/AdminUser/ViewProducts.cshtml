@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CoreEntities.Product>
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ViewProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View Products</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flagged)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flagged)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCategory.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductType.Description)
+                </td>
+                <td>
+                    <a asp-action="FlagProduct" asp-route-ProductId="@item.ProductId">Flag It</a> |
+                 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -12,6 +12,7 @@ namespace CoreEntities
         }
 
         public Guid FacilityId { get; set; }
+        public string FacilityName { get; set; }
         public string Street { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }

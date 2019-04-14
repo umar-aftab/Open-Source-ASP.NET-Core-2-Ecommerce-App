@@ -1,0 +1,38 @@
+﻿@model WebApplication.Models.UserManager
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="col-xs-10">
+    <h1>User Login</h1>
+    <hr />
+    <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+    <form asp-controller="WebsiteUser" asp-action="Login" method="post">
+        <div class="form-group">
+
+            <label class="has-float-label">
+                UserName
+
+                <input asp-for="UserName" type="text" name="UserName" class="form-control" />
+
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </label>
+            <br />
+
+            <label class="has-float-label">
+                Password
+
+                <input asp-for="Password" type="text" name="Password" class="form-control" />
+
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </label>
+            <br />
+
+            <input type="submit" class="btn btn-action" value="Submit" />
+        </div>
+
+
+    </form>
+</div>

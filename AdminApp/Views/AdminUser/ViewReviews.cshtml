@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CoreEntities.Review>
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ViewReviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View Reviews</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stars)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flagged)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewedUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewingUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stars)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flagged)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewedUser.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewingUser.FirstName)
+                </td>
+                <td>
+                    <a asp-action="FlagReview" asp-route-ReviewId="@item.ReviewId">Flag It</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

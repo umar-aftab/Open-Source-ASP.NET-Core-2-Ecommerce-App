@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoreEntities;
 
-namespace WebApp.Controllers
+namespace WebApplication.Controllers
 {
     public class MainController : Controller
     {
