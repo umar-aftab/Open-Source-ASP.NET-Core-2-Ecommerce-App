@@ -15,7 +15,6 @@ namespace FacilityApp.Controllers
     public class FacilityEmployeeController : MainController
     {
         private readonly FacilityEmployeeRepository facilityEmployeeRepository;
-        private readonly FacilityItemRespository facilityItemRespository;
         private readonly UserManager user;
 
 
@@ -28,7 +27,6 @@ namespace FacilityApp.Controllers
                 Password = null
             };
             facilityEmployeeRepository = new FacilityEmployeeRepository(context);
-            facilityItemRespository = new FacilityItemRespository(context);
         }
 
         public bool isValidAuth(string username, string password)
@@ -36,11 +34,7 @@ namespace FacilityApp.Controllers
             return facilityEmployeeRepository.Any(x => x.Name == username && x.Password == password);
         }
 
-        public IActionResult Index(UserManager user)
-        {
-            ViewBag.Message = "Welcome " + user.Name + "!";
-            return View();
-        }
+
 
         public IActionResult Login()
         {
@@ -51,11 +45,21 @@ namespace FacilityApp.Controllers
         public async Task<IActionResult> Login(UserManager loggedUser)
         {
             if (!isValidAuth(loggedUser.Name, loggedUser.Password))
+            {
                 return View();
+            }
+            else
+            {
+                var emp = facilityEmployeeRepository.First(a => a.Name == loggedUser.Name && a.Password == loggedUser.Password);
+                loggedUser.EmployeeId = emp.EmployeeId;
+                loggedUser.FacilityId = emp.FacilityId;
+            }
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,"User"),
-                new Claim(ClaimTypes.NameIdentifier,loggedUser.Name)
+                new Claim(ClaimTypes.NameIdentifier,loggedUser.EmployeeId.ToString()),
+                new Claim(ClaimTypes.Name,loggedUser.Name),
+                new Claim(ClaimTypes.PrimaryGroupSid,loggedUser.FacilityId.ToString())
             };
 
             var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -67,7 +71,9 @@ namespace FacilityApp.Controllers
             await HttpContext.SignInAsync(scheme, principal);
             this.user.Name = loggedUser.Name;
             this.user.Password = loggedUser.Password;
-            return RedirectToAction("Index", "FacilityEmployee", this.user);
+            this.user.EmployeeId = loggedUser.EmployeeId;
+            this.user.FacilityId = loggedUser.FacilityId;
+            return RedirectToAction("Index", "DropOffFacility", this.user);
         }
 
         public async Task<IActionResult> Logout()
@@ -77,10 +83,5 @@ namespace FacilityApp.Controllers
             return RedirectToAction("Login");
         }
 
-        public IActionResult ViewItems()
-        {
-            var items = facilityItemRespository.All();
-            return View();
-        }
     }
 }

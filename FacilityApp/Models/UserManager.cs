@@ -9,5 +9,7 @@ namespace FacilityApp.Models
     {
        public string Name { get; set; }
        public string Password { get; set; }
+       public Guid EmployeeId { get; set; }
+       public Guid FacilityId { get; set; }
     }
 }

@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = "_Layout";
+
+}
+
+<div>
+    @ViewBag.Message
+</div>
+
+<div class="col-xs-10">
+    <div class="btn-group-lg">
+        <a href="@Url.Action("ViewItems","DropOffFacility")"><button type="button" class="btn btn-secondary">View Items</button></a>
+
+    </div>
+
+</div>
+<a href="@Url.Action("Logout","FacilityEmployee")"><button type="button" class="btn-secondary">Logout</button></a>

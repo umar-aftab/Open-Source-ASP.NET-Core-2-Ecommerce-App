@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\FacilityEmployee\Index.cshtml">
+    <Content Update="Views\DropOffFacility\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\FacilityEmployee\Login.cshtml">
@@ -25,10 +25,6 @@
     <Content Update="Views\Shared\_Layout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\DropOffFacility\" />
   </ItemGroup>
 
 </Project>
