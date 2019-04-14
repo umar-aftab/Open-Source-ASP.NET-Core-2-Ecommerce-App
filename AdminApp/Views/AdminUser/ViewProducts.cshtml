@@ -7,6 +7,9 @@
 
 <h2>View Products</h2>
 
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
 
 <table class="table">
     <thead>
@@ -62,7 +65,8 @@
                 </td>
                 <td>
                     <a asp-action="FlagProduct" asp-route-ProductId="@item.ProductId">Flag It</a> |
-                 
+                    <a asp-action="UnFlagProduct" asp-route-ProductId="@item.ProductId">UnFlag It</a>
+
                 </td>
             </tr>
         }

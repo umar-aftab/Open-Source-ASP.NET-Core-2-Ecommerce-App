@@ -7,6 +7,9 @@
 
 <h2>View Users</h2>
 
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -55,7 +58,8 @@
                 </td>
                 <td>
                     <a asp-action="FlagUser" asp-route-WebsiteUserId="@item.WebsiteUserId">Flag </a> |
-    
+                    <a asp-action="UnFlagUser" asp-route-WebsiteUserId="@item.WebsiteUserId">UnFlag </a>
+
                 </td>
             </tr>
         }

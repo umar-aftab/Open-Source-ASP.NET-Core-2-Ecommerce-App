@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreEntities
 {
     public partial class FacilityEmployee
     {
         public Guid EmployeeId { get; set; }
+        [ForeignKey("DropOffFacility")]
         public Guid FacilityId { get; set; }
         [Required]
         [StringLength(100)]

@@ -8,6 +8,9 @@
 <h2>View Reviews</h2>
 
 
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -62,6 +65,7 @@
                 </td>
                 <td>
                     <a asp-action="FlagReview" asp-route-ReviewId="@item.ReviewId">Flag It</a> |
+                    <a asp-action="UnFlagReview" asp-route-ReviewId="@item.ReviewId">UnFlag It</a>
                 </td>
             </tr>
         }

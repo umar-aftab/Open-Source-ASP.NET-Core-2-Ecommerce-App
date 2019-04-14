@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AdminApp.Controllers
 {
-    [Authorize]
+   
     public class AdminUserController : MainController
     {
         private readonly AdminUserRepository adminUserRepository;
@@ -34,8 +34,7 @@ namespace AdminApp.Controllers
             user = new UserManager()
             {
                 Name = "defualt",
-                Password = null,
-                AdminId = Guid.Empty
+                Password = null
             };
             adminUserRepository = new AdminUserRepository(context);
             websiteUserRepository = new WebsiteUserRepository(context);
@@ -49,6 +48,7 @@ namespace AdminApp.Controllers
             flaggedReviewRepository = new FlaggedReviewRepository(context);
             flaggedUserRepository = new FlaggedUserRepository(context);
         }
+        [Authorize]
         public IActionResult Index(UserManager user)
         {
             ViewBag.Message = "Welcome " + user.Name + " !";
@@ -108,47 +108,55 @@ namespace AdminApp.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult ViewUsers()
         {
             var users=websiteUserRepository.All();
             return View(users);
         }
 
+        [Authorize]
         public IActionResult ViewProducts()
         {
             var products = productRepository.All();
             return View(products);
         }
 
+        [Authorize]
         public IActionResult ViewReviews()
         {
             var reviews = reviewRepository.All();
             return View(reviews);
         }
 
+        [Authorize]
         public IActionResult ViewOrders()
         {
             var orders = orderRepository.All();
             return View(orders);
         }
 
+        [Authorize]
         public IActionResult ViewFacilities()
         {
             var facilities = dropOffFacilityRepository.All();
             return View(facilities);
         }
 
+        [Authorize]
         public IActionResult ViewFacilityEmployees()
         {
             var employees = facilityEmployeeRepository.All();
             return View(employees);
         }
 
+        [Authorize]
         public IActionResult AddFacility()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddFacility(DropOffFacility dropOffFacility)
         {
@@ -165,6 +173,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult EditFacility(Guid FacilityId)
         {
             if (ModelState.IsValid)
@@ -186,6 +195,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditFacility(DropOffFacility dropOffFacility)
         {
@@ -201,6 +211,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult DeleteFacility(Guid FacilityId)
         {
             var facility = dropOffFacilityRepository.GetById(FacilityId);
@@ -215,6 +226,7 @@ namespace AdminApp.Controllers
             return RedirectToAction("ViewFacilities");
         }
 
+        [Authorize]
         public IActionResult AddFacilityEmployee(Guid FacilityId)
         {
             if (ModelState.IsValid)
@@ -235,6 +247,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddFacilityEmployee(FacilityEmployee facilityEmployee)
         {
@@ -251,6 +264,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult EditFacilityEmployee(Guid EmployeeId)
         {
             if (ModelState.IsValid)
@@ -274,6 +288,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditFacilityEmployee(FacilityEmployee employee)
         {
@@ -289,6 +304,7 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult DeleteFacilityEmployee(Guid EmployeeId)
         {
             FacilityEmployee facilityEmp = new FacilityEmployee();
@@ -306,22 +322,13 @@ namespace AdminApp.Controllers
         }
 
         /*Flagging Methods*/
-
+        [Authorize]
         public IActionResult FlagUser(Guid WebsiteUserId)
         {
             if (ModelState.IsValid)
             {
                 var user = websiteUserRepository.GetById(WebsiteUserId);
-                user.Flagged = true;
-                WebsiteUser webUser = new WebsiteUser();
-                webUser.WebsiteUserId = user.WebsiteUserId;
-                webUser.UserName = user.UserName;
-                webUser.Email = user.Email;
-                webUser.FirstName = user.FirstName;
-                webUser.LastName = user.LastName;
-                webUser.Password = user.Password;
-                webUser.Flagged = user.Flagged;
-                websiteUserRepository.Update(webUser);
+                websiteUserRepository.MarkDeleted(user);
                 websiteUserRepository.CommitChanges();
                 Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 FlaggedUser flaggedUser = new FlaggedUser();
@@ -339,22 +346,13 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult FlagProduct(Guid ProductId)
         {
             if (ModelState.IsValid)
             {
                 var product = productRepository.GetById(ProductId);
-                product.Flagged = true;
-                Product webProduct= new Product();
-                webProduct.ProductId = product.ProductId;
-                webProduct.Condition = product.Condition;
-                webProduct.Description = product.Description;
-                webProduct.Image = product.Image;
-                webProduct.Price = product.Price;
-                webProduct.ProductCategoryId = product.ProductCategoryId;
-                webProduct.ProductTypeId = product.ProductTypeId;
-                webProduct.Flagged = product.Flagged;
-                productRepository.Update(webProduct);
+                productRepository.MarkDeleted(product);
                 productRepository.CommitChanges();
                 Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 FlaggedProduct flaggedPro = new FlaggedProduct();
@@ -372,22 +370,13 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult FlagReview(Guid ReviewId)
         {
             if (ModelState.IsValid)
             {
                 var rev = reviewRepository.GetById(ReviewId);
-                rev.Flagged = true;
-                Review review = new Review();
-                review.Content = rev.Content;
-                review.Date = rev.Date;
-                review.Flagged = rev.Flagged;
-                review.ReviewedUserId = rev.ReviewedUserId;
-                review.ReviewingUserId = rev.ReviewingUserId;
-                review.Stars = rev.Stars;
-                review.Subject = rev.Subject;
-                review.ReviewId = rev.ReviewId;
-                reviewRepository.Update(review);
+                reviewRepository.MarkDeleted(rev);
                 reviewRepository.CommitChanges();
                 Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 FlaggedReview flaggedRev = new FlaggedReview();
@@ -405,20 +394,13 @@ namespace AdminApp.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult FlagOrder(Guid OrderId)
         {
             if (ModelState.IsValid)
             {
                 var order = orderRepository.GetById(OrderId);
-                order.Flagged = true;
-                Order webOrder = new Order();
-                webOrder.Completed = order.Completed;
-                webOrder.Cost = order.Cost;
-                webOrder.Date = order.Date;
-                webOrder.Flagged = order.Flagged;
-                webOrder.OrderId = order.OrderId;
-                webOrder.WebsiteUserId = order.WebsiteUserId;
-                orderRepository.Update(webOrder);
+                orderRepository.MarkDeleted(order);
                 orderRepository.CommitChanges();
                 Guid AdminId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 FlaggedOrder flaggedOrd = new FlaggedOrder();
