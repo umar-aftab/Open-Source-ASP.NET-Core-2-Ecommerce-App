@@ -53,6 +53,7 @@ namespace WebApplication.Controllers
                 websiteUserRepository.CommitChanges();
                 this.user.UserName = websiteUser.UserName;
                 this.user.Password = websiteUser.Password;
+                this.user.WebsiteUserId = websiteUser.WebsiteUserId;
                 TempData["user"] = user;
                 return RedirectToAction("Index","WebsiteUser",this.user);
                 //WebsiteUser wUser = new WebsiteUser();wUser.WebsiteUserId = Guid.NewGuid();wUser.FirstName = websiteUser.FirstName;wUser.LastName = websiteUser.LastName;wUser.UserName = websiteUser.UserName;wUser.Email = websiteUser.Email;wUser.Password = websiteUser.Password;
@@ -74,11 +75,18 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> Login(UserManager loggedUser)
         {
             if (!isValidAuth(loggedUser.UserName, loggedUser.Password))
+            {
                 return View();
+            }
+            else
+            {
+                loggedUser.WebsiteUserId = websiteUserRepository.First(a => a.UserName == loggedUser.UserName && a.Password == loggedUser.Password).WebsiteUserId;
+            }
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,"User"),
-                new Claim(ClaimTypes.NameIdentifier,loggedUser.UserName)
+                new Claim(ClaimTypes.Name,loggedUser.UserName),
+                new Claim(ClaimTypes.NameIdentifier,loggedUser.WebsiteUserId.ToString())
             };
           
             var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -90,6 +98,7 @@ namespace WebApplication.Controllers
             await HttpContext.SignInAsync(scheme, principal);
             this.user.UserName = loggedUser.UserName;
             this.user.Password = loggedUser.Password;
+            this.user.WebsiteUserId = loggedUser.WebsiteUserId;
             return RedirectToAction("Index","WebsiteUser",this.user);
         }
 

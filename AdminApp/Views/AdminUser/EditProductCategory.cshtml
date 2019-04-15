@@ -1,0 +1,32 @@
+﻿@model CoreEntities.ProductCategory
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "EditProductCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditProductCategory</h2>
+
+<h4>ProductCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProductCategory" asp-controller="AdminUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductCategoryId" />
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Category Description</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+

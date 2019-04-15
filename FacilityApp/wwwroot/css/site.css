@@ -66,11 +66,12 @@ body.anonymous {
     background-color: #0071BC;
     background-image: none;
     border-radius: 0;
-    width: 100%;
+    width: 60%;
     /*display: block;*/
     font-size: 18px;
     padding: 15px;
     border-color: #0071BC;
+    margin-bottom: 10px;
 }
 
     .btn:hover {

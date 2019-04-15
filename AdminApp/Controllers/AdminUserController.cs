@@ -27,6 +27,8 @@ namespace AdminApp.Controllers
         private readonly FlaggedReviewRepository flaggedReviewRepository;
         private readonly FlaggedProductRepository flaggedProductRepository;
         private readonly FlaggedOrderRepository flaggedOrderRepository;
+        private readonly ProductCategoryRepository productCategoryRepository;
+        private readonly ProductTypeRepository productTypeRepository;
         private UserManager user;
         public AdminUserController(ContextEntities context) : base(context)
         {
@@ -47,6 +49,8 @@ namespace AdminApp.Controllers
             flaggedProductRepository = new FlaggedProductRepository(context);
             flaggedReviewRepository = new FlaggedReviewRepository(context);
             flaggedUserRepository = new FlaggedUserRepository(context);
+            productCategoryRepository = new ProductCategoryRepository(context);
+            productTypeRepository = new ProductTypeRepository(context);
         }
         [Authorize]
         public IActionResult Index(UserManager user)
@@ -517,6 +521,90 @@ namespace AdminApp.Controllers
                 return RedirectToAction("Error", "AdminUser");
             }
         }
+
+        public IActionResult ViewProductCategories()
+        {
+            return View(productCategoryRepository.All());
+        }
+
+        public IActionResult CreateProductCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateProductCategory(ProductCategory category)
+        {
+            category.ProductCategoryId = Guid.NewGuid();
+            productCategoryRepository.Insert(category);
+            productCategoryRepository.CommitChanges();
+            return RedirectToAction("ViewProductCategories");
+
+        }
+
+        public IActionResult EditProductCategory(Guid ProductCategoryId)
+        {
+            return View(productCategoryRepository.GetById(ProductCategoryId));
+        }
+
+        [HttpPost]
+        public IActionResult EditProductCategory(ProductCategory category)
+        {
+            productCategoryRepository.Update(category);
+            productCategoryRepository.CommitChanges();
+            return RedirectToAction("ViewProductCategories");
+        }
+
+        public IActionResult DeleteProductCategory(Guid ProductCategoryId)
+        {
+            var item=productCategoryRepository.GetById(ProductCategoryId);
+            productCategoryRepository.Delete(item);
+            productCategoryRepository.CommitChanges();
+            return RedirectToAction("ViewProductCategories");
+        }
+
+        public IActionResult ViewProductTypes()
+        {
+            return View(productTypeRepository.All());
+        }
+
+        public IActionResult CreateProductTypes()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateProductTypes(ProductType type)
+        {
+            type.ProductTypeId = Guid.NewGuid();
+            productTypeRepository.Insert(type);
+            productTypeRepository.CommitChanges();
+            return RedirectToAction("ViewProductTypes");
+
+        }
+
+        public IActionResult EditProductTypes(Guid ProductTypeId)
+        {
+            return View(productTypeRepository.GetById(ProductTypeId));
+        }
+
+        [HttpPost]
+        public IActionResult EditProductTypes(ProductType type)
+        {
+            productTypeRepository.Update(type);
+            productTypeRepository.CommitChanges();
+            return RedirectToAction("ViewProductTypes");
+        }
+
+        public IActionResult DeleteProductTypes(Guid ProductTypeId)
+        {
+            var item = productTypeRepository.GetById(ProductTypeId);
+            productTypeRepository.Delete(item);
+            productTypeRepository.CommitChanges();
+            return RedirectToAction("ViewProductTypes");
+        }
+
+
 
     }
 }
