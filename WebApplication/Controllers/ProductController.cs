@@ -18,12 +18,14 @@ namespace WebApplication.Controllers
         private readonly ProductCategoryRepository productCategoryRepository;
         private readonly ProductTypeRepository productTypeRepository;
         private readonly ProductViewModel productViewModel;
+        private readonly WebsiteUserRepository websiteUserRepository;
         public ProductController(ContextEntities context) : base(context)
         {
             context = _context;
             productRepository = new ProductRepository(context);
             productTypeRepository = new ProductTypeRepository(context);
             productCategoryRepository = new ProductCategoryRepository(context);
+            websiteUserRepository = new WebsiteUserRepository(context);
             productViewModel = new ProductViewModel();
         }
 
@@ -45,7 +47,7 @@ namespace WebApplication.Controllers
                 Product product = new Product();
                 product.ProductId = Guid.NewGuid();
                 product.Price = productVM.Price;
-                product.ProductCreator = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                product.WebsiteUserId = Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 product.ProductCategoryId = productVM.ProductCategoryId;
                 product.ProductTypeId = productVM.ProductTypeId;
                 product.Description = productVM.Description;
@@ -76,18 +78,28 @@ namespace WebApplication.Controllers
 
         public IActionResult ViewMyProducts()
         {
+            var products = productRepository.Get(a=>a.WebsiteUserId == Guid.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            foreach (var item in products)
+            {
+                item.ProductCategory = productCategoryRepository.GetById(item.ProductCategoryId);
+                item.ProductType = productTypeRepository.GetById(item.ProductTypeId);
+                item.WebsiteUser = websiteUserRepository.GetById(item.WebsiteUserId);
+            }
            //// var product = productRepository.GetById(ProductId);
            // product.ProductType = productTypeRepository.GetById(product.ProductTypeId);
            // product.ProductCategory = productCategoryRepository.GetById(product.ProductCategoryId);
-            return View();
+            return View(products);
         }
 
-        public IActionResult RemoveProduct()
+        public IActionResult ViewProduct(Guid ProductId)
         {
-            return null;
+            var product = productRepository.GetById(ProductId);
+            product.ProductCategory = productCategoryRepository.GetById(product.ProductCategoryId);
+            product.ProductType = productTypeRepository.GetById(product.ProductTypeId);
+            return View(product);
         }
 
-        public IActionResult EditProduct()
+        public IActionResult DeleteProduct()
         {
             return null;
         }

@@ -19,11 +19,12 @@ namespace CoreEntities
         public Guid ProductTypeId { get; set; }
         public Guid ProductCategoryId { get; set; }
         public string Condition { get; set; }
-        public Guid ProductCreator { get; set; }
+        public Guid WebsiteUserId { get; set; }
         public bool Flagged { get; set; }
 
         public ProductCategory ProductCategory { get; set; }
         public ProductType ProductType { get; set; }
+        public WebsiteUser WebsiteUser { get; set; }
         public ICollection<FlaggedProduct> FlaggedProduct { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
         public ICollection<TransactionHistory> TransactionHistory { get; set; }

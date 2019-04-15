@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Product]
 (
 	[ProductId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[WebsiteUserId] UNIQUEIDENTIFIER NULL,
 	[Price] NVARCHAR(10) NULL,
 	[Description] NVARCHAR(100) NULL,
 	[Image] VARBINARY(MAX) NULL,
@@ -9,5 +10,6 @@
 	[Condition] NVARCHAR(100) NULL,
 	[Flagged] BIT NOT NULL DEFAULT 0,
 	CONSTRAINT [FK_Product_to_ProductType] FOREIGN KEY ([ProductTypeId]) REFERENCES [ProductType]([ProductTypeId]),
-	CONSTRAINT [FK_Product_to_ProductCategory] FOREIGN KEY ([ProductCategoryId]) REFERENCES [ProductCategory]([ProductCategoryId])
+	CONSTRAINT [FK_Product_to_ProductCategory] FOREIGN KEY ([ProductCategoryId]) REFERENCES [ProductCategory]([ProductCategoryId]),
+	CONSTRAINT [FK_Product_to_WebsiteUser] FOREIGN KEY ([WebsiteUserId]) REFERENCES [WebsiteUser]([WebsiteUserId])
 )

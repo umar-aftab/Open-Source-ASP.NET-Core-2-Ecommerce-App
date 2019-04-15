@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<CoreEntities.Product>
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "ViewProducts";
+    ViewData["Title"] = "ViewMyProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View Products</h2>
+<h2>View MyProducts</h2>
 
 <div>
-    <a asp-action="Index">Back to Home</a>
+    <a asp-action="Index" asp-controller="WebsiteUser">Back to Home</a>
 </div>
-
 <table class="table">
     <thead>
         <tr>
@@ -21,13 +20,10 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Condition)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Flagged)
+                @Html.DisplayNameFor(model => model.WebsiteUser)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductCategory)
@@ -48,18 +44,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                @{ 
-                    var base64 = Convert.ToBase64String(item.Image);
-                    var imageSrc = string.Format("data:image/jpeg;base64,{0}", base64);
-                }
-                <td>
-                    <img type="image/jpeg" src="@imageSrc" width="100px" height="100px" />
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Condition)
                 </td>
+                @{ 
+                    var name = item.WebsiteUser.FirstName + " " + item.WebsiteUser.LastName;
+                }
                 <td>
-                    @Html.DisplayFor(modelItem => item.Flagged)
+                    @Html.DisplayFor(modelItem => name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductCategory.Description)
@@ -68,9 +61,8 @@
                     @Html.DisplayFor(modelItem => item.ProductType.Description)
                 </td>
                 <td>
-                    <a asp-action="FlagProduct" asp-route-ProductId="@item.ProductId">Flag It</a> |
-                    <a asp-action="UnFlagProduct" asp-route-ProductId="@item.ProductId">UnFlag It</a>
-
+                    <a asp-action="ViewProduct" asp-route-ProductId="@item.ProductId">View Product Details</a> |
+                    <a asp-action="DeleteProduct" asp-route-ProductId="@item.ProductId">Delete Product</a>
                 </td>
             </tr>
         }

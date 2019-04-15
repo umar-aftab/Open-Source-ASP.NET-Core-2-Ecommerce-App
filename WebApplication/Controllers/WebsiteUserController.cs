@@ -54,7 +54,7 @@ namespace WebApplication.Controllers
                 this.user.UserName = websiteUser.UserName;
                 this.user.Password = websiteUser.Password;
                 this.user.WebsiteUserId = websiteUser.WebsiteUserId;
-                TempData["user"] = user;
+                //TempData["user"] = user;
                 return RedirectToAction("Index","WebsiteUser",this.user);
                 //WebsiteUser wUser = new WebsiteUser();wUser.WebsiteUserId = Guid.NewGuid();wUser.FirstName = websiteUser.FirstName;wUser.LastName = websiteUser.LastName;wUser.UserName = websiteUser.UserName;wUser.Email = websiteUser.Email;wUser.Password = websiteUser.Password;
                 //websiteUserRepository.Insert(wUser);
