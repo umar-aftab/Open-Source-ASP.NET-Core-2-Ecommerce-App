@@ -209,7 +209,7 @@ namespace AdminApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                dropOffFacilityRepository.Update(dropOffFacility);
+                dropOffFacilityRepository.UpdateAct(dropOffFacility);
                 dropOffFacilityRepository.CommitChanges();
                 return RedirectToAction("ViewFacilities", "AdminUser");
             }
@@ -550,9 +550,21 @@ namespace AdminApp.Controllers
         [HttpPost]
         public IActionResult EditProductCategory(ProductCategory category)
         {
-            productCategoryRepository.Update(category);
-            productCategoryRepository.CommitChanges();
-            return RedirectToAction("ViewProductCategories");
+
+            if (ModelState.IsValid)
+            {
+                ProductCategory productCat = new ProductCategory();
+                productCat.ProductCategoryId = category.ProductCategoryId;
+                productCat.Description = category.Description;
+                productCategoryRepository.UpdateAct(productCat);
+                productCategoryRepository.CommitChanges();
+                return RedirectToAction("ViewProductCategories");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Product Category couldnt be edited.");
+                return RedirectToAction("Error", "AdminUser");
+            }
         }
 
         public IActionResult DeleteProductCategory(Guid ProductCategoryId)
@@ -591,9 +603,16 @@ namespace AdminApp.Controllers
         [HttpPost]
         public IActionResult EditProductTypes(ProductType type)
         {
-            productTypeRepository.Update(type);
-            productTypeRepository.CommitChanges();
-            return RedirectToAction("ViewProductTypes");
+            if (ModelState.IsValid) {
+                productTypeRepository.UpdateAct(type);
+                productTypeRepository.CommitChanges();
+                return RedirectToAction("ViewProductTypes");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Product Type couldnt be edited.");
+                return RedirectToAction("Error", "AdminUser");
+            }
         }
 
         public IActionResult DeleteProductTypes(Guid ProductTypeId)

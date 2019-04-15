@@ -19,6 +19,7 @@ namespace CoreEntities
         public Guid ProductTypeId { get; set; }
         public Guid ProductCategoryId { get; set; }
         public string Condition { get; set; }
+        public Guid ProductCreator { get; set; }
         public bool Flagged { get; set; }
 
         public ProductCategory ProductCategory { get; set; }

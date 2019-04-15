@@ -10,10 +10,10 @@
 
 <div class="col-xs-10">
     <div class="btn-group-lg">
-        <a href="@Url.Action("ViewUsers","AdminUser")"><button type="button" class="btn btn-secondary">Sell A New Product</button></a>
-        <a href="@Url.Action("ViewProducts","AdminUser")"><button type="button" class="btn btn-secondary">My Product Listing</button></a>
-        <a href="@Url.Action("ViewUsers","AdminUser")"><button type="button" class="btn btn-secondary">My Transaction History</button></a>
-        <a href="@Url.Action("ViewUsers","AdminUser")"><button type="button" class="btn btn-secondary">My Billing Info</button></a>
+        <a href="@Url.Action("CreateProduct","Product")"><button type="button" class="btn btn-secondary">Sell A New Product</button></a>
+        <a href="@Url.Action("ViewMyProducts","Product")"><button type="button" class="btn btn-secondary">My Product Listing</button></a>
+        <a href="@Url.Action("ViewTransactionHistory","TransactionHistory")"><button type="button" class="btn btn-secondary">My Transaction History</button></a>
+        <a href="@Url.Action("ViewBillingInfo","BillingInfo")"><button type="button" class="btn btn-secondary">My Billing Info</button></a>
         <a href="@Url.Action("ReviewsReceived","Review")"><button type="button" class="btn btn-secondary">Reviews Received</button></a>
         <a href="@Url.Action("ReviewsWritten","Review")"><button type="button" class="btn btn-secondary">Reviews Written</button></a>
         <a href="@Url.Action("ViewProducts","Product")"><button type="button" class="btn btn-secondary">View Products</button></a>
@@ -21,4 +21,4 @@
     </div>
 
 </div>
-<a href="@Url.Action("Logout","AdminUser")"><button type="button" class="btn-secondary">Logout</button></a>
+<a href="@Url.Action("Logout","WebsiteUser")"><button type="button" class="btn-secondary">Logout</button></a>

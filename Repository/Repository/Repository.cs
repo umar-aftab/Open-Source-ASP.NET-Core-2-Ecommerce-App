@@ -121,6 +121,12 @@ namespace Service
             _context.Entry(entity);
         }
 
+        public void UpdateAct(T entity)
+        {
+            _dbset.Update(entity);
+            _context.Update(entity);
+        }
+
         public virtual int CommitChanges()
         {
             return _context.SaveChanges();

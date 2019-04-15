@@ -1,4 +1,55 @@
-﻿
+﻿@model WebApplication.ViewModel.ProductViewModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "CreateProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Create Product</h2>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateProduct" asp-controller="Product" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Price</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Description</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Image</label>
+                <input asp-for="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Types" class="control-label">Product Category</label>
+                @Html.DropDownListFor(x => x.ProductCategoryId, new SelectList(Model.Categories, "ProductCategoryId", "Description"))
+            </div>
+            <div class="form-group">
+                <label asp-for="Categories" class="control-label">Product Type</label>
+                @Html.DropDownListFor(x => x.ProductTypeId, new SelectList(Model.Types, "ProductTypeId", "Description"))
+            </div>
+            <div class="form-group">
+                <label asp-for="Condition" class="control-label">Condition</label>
+                <input asp-for="Condition" class="form-control" />
+                <span asp-validation-for="Condition" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
